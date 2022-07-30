@@ -6,7 +6,7 @@ using UnityEngine;
 public class LevelFiller : MonoBehaviour
 {
 
-    public List<TileController> FillLevel(Dictionary<char, GameObject> tileAssets, Level level)
+    public List<TileController> FillLevel(Dictionary<char, GameObject> tileAssets, Level level, GameObject parent)
     {
         List<TileController> tileControllers = new List<TileController>();
         for (int x = 0; x < level.GetLevelSize().x; x++)
@@ -18,7 +18,7 @@ public class LevelFiller : MonoBehaviour
                     tileAssets.TryGetValue(level.GetTileAt(x, y).Code, out GameObject tileOut);
                     if (tileOut != null)
                     {
-                        Instantiate(tileOut, new Vector3(x, 0, y), Quaternion.identity);
+                        Instantiate(tileOut, new Vector3(x, 0, -y), Quaternion.identity, parent.transform);
                         tileControllers.Add(tileOut.GetComponent<TileController>());
                     }
                 }

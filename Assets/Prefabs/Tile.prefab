@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2273649639773228430}
   m_Layer: 0
   m_Name: Apple
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,8 +110,8 @@ GameObject:
   - component: {fileID: 5853855610022146002}
   - component: {fileID: 3850186758059539526}
   m_Layer: 0
-  m_Name: Cube
-  m_TagString: Untagged
+  m_Name: Base
+  m_TagString: Base
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

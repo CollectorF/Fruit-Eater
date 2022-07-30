@@ -18,13 +18,16 @@ public class LevelLoader : MonoBehaviour
     [SerializeField]
     private string levelDir = "Level\\Level";
     [SerializeField]
+    private GameObject spawnPoint;
+    [SerializeField]
     private List<Tiles> tilesLibrary;
 
     private ILevelLoader levelLoader;
     private LevelFiller levelFiller;
-    private List<TileController> tiles;
-    Dictionary<char, GameObject> tileAssets;
+    private Dictionary<char, GameObject> tileAssets;
+
     internal Level level;
+    internal List<TileController> tiles;
 
     //internal event Action OnLevelLoad;
 
@@ -46,8 +49,30 @@ public class LevelLoader : MonoBehaviour
         string levelName = null;
         levelName = levelDir + (levelid + 1);
         level = levelLoader.ReadLevel(levelName);
-        tiles = levelFiller.FillLevel(tileAssets, level);
+        tiles = levelFiller.FillLevel(tileAssets, level, spawnPoint);
+        SetInitialPointPosition();
         //OnLevelLoad?.Invoke();
+    }
+
+    private void SetInitialPointPosition()
+    {
+        Transform basePrefabTransform = null;
+        Transform[] prefabElements = tilesLibrary[0].TileAsset.GetComponentsInChildren<Transform>();
+        foreach (var item in prefabElements)
+        {
+            if (item.CompareTag("Base"))
+            {
+                basePrefabTransform = item;
+                break;
+            };
+        }
+        Vector2 levelSize = level.GetLevelSize();
+        spawnPoint.transform.position = new Vector3
+            (
+                (-levelSize.x * basePrefabTransform.localScale.x / 2) + basePrefabTransform.localScale.x / 2,
+                0,
+                (levelSize.y * basePrefabTransform.localScale.z / 2) - basePrefabTransform.localScale.z / 2
+            );
     }
 }
 
