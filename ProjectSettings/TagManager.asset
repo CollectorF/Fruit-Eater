@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Base
   - Target
+  - ActiveElement
+  - Dragable
   layers:
   - Default
   - TransparentFX

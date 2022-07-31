@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 1892527722487597734}
   - component: {fileID: 6708043018480742076}
   - component: {fileID: 2310071056564866367}
-  - component: {fileID: 2273649639773228430}
+  - component: {fileID: 2117351031022194445}
+  - component: {fileID: 6771515855815338865}
   m_Layer: 0
   m_Name: Apple
   m_TagString: Target
@@ -84,19 +85,31 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2273649639773228430
-SphereCollider:
+--- !u!65 &2117351031022194445
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7349664127198129494}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6771515855815338865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7349664127198129494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd7326baab7a30d4a81493b00a886b3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8051402140172710371
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,8 +216,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3920814944617849531}
+  - component: {fileID: 3035681962819856167}
   m_Layer: 0
-  m_Name: Tile
+  m_Name: TileDefault
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -227,3 +241,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3035681962819856167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9049271111122708660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1fe8b978711a984e8ed84515e91cbef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseMeshRenderer: {fileID: 5853855610022146002}

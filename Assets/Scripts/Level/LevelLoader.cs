@@ -47,6 +47,10 @@ public class LevelLoader : MonoBehaviour
     internal void SetupLevel(int levelid)
     {
         string levelName = null;
+        if (tiles != null)
+        {
+            DestroyLevel();
+        }
         levelName = levelDir + (levelid + 1);
         level = levelLoader.ReadLevel(levelName);
         tiles = levelFiller.FillLevel(tileAssets, level, spawnPoint);
@@ -73,6 +77,18 @@ public class LevelLoader : MonoBehaviour
                 0,
                 (levelSize.y * basePrefabTransform.localScale.z / 2) - basePrefabTransform.localScale.z / 2
             );
+    }
+
+    private void DestroyLevel()
+    {
+        if (tiles.Count != 0)
+        {
+            foreach (var item in tiles)
+            {
+                Destroy(item.gameObject);
+            }
+            tiles.Clear();
+        }
     }
 }
 

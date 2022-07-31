@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class LevelFiller : MonoBehaviour
 {
-
     public List<TileController> FillLevel(Dictionary<char, GameObject> tileAssets, Level level, GameObject parent)
     {
         List<TileController> tileControllers = new List<TileController>();
