@@ -394,10 +394,12 @@ MonoBehaviour:
   - {fileID: 7590514323620514787}
   - {fileID: 8148946038138672260}
   body: {fileID: 7978445297375588102}
-  growSpeed: 1
+  growSpeed: 0.3
+  returnMoveDuration: 1
   layerMask:
     serializedVersion: 2
     m_Bits: 8
+  isFixed: 0
 --- !u!65 &5451897292179581544
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -9,15 +9,17 @@ public class BaseActionElement : MonoBehaviour
     [SerializeField]
     protected GameObject body;
     [SerializeField]
-    private float growSpeed;
+    protected float growSpeed;
     [SerializeField]
     protected float returnMoveDuration;
     [SerializeField]
     protected LayerMask layerMask;
 
     public bool isDragged { get; internal set; } = false;
+    public bool isFixed { get; internal set; } = false;
 
     protected Vector3 initialPosition;
+    protected Coroutine MoveHeadCoroutine;
 
     protected virtual void Start()
     {
@@ -29,21 +31,29 @@ public class BaseActionElement : MonoBehaviour
     {
         if (!isDragged)
         {
-            DetectTileBelow();
+            DetectTilesBelow();
+        }
+        if (isFixed)
+        {
+            DetectTilesInfront();
         }
     }
 
-    protected virtual void GrowElement()
+    protected void GrowElement()
     {
 
     }
 
-    protected virtual void DetectTileBelow()
+    protected virtual void DetectTilesBelow()
+    {
+
+    }
+    protected virtual void DetectTilesInfront()
     {
 
     }
 
-    protected virtual void FixElement(GameObject tile)
+    protected void FixElement(GameObject tile)
     {
         gameObject.transform.position = new Vector3
             (
@@ -52,7 +62,7 @@ public class BaseActionElement : MonoBehaviour
                 tile.transform.position.z
             );
         gameObject.tag = "Untagged";
-        isDragged = false;
+        isFixed = true;
     }
 
     protected void DisableTargetObject(GameObject target)
@@ -60,6 +70,23 @@ public class BaseActionElement : MonoBehaviour
         TileController controller = target.GetComponentInParent<TileController>();
         controller.RemoveTargetObject();
     }
+
+    protected IEnumerator MoveHead(GameObject gameObject, Vector3 endPos, float moveDuration, GameObject target)
+    {
+        Vector3 startPos = gameObject.transform.position;
+        float timeElapsed = 0;
+        while (timeElapsed < moveDuration)
+        {
+            gameObject.transform.position = Vector3.Lerp(startPos, endPos, timeElapsed / moveDuration);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+        gameObject.transform.position = endPos;
+        MoveHeadCoroutine = null;
+        DisableTargetObject(target);
+    }
+
+
 
     //protected IEnumerator MoveToInitialPosition(GameObject gameObject, Vector3 endPos, float moveDuration)
     //{

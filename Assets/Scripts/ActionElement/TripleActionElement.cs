@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TripleActionElement : BaseActionElement
 {
-    protected override void DetectTileBelow()
+    protected override void DetectTilesBelow()
     {
         if (Physics.Raycast(body.transform.position + new Vector3(0, 0.3f, 0), Vector3.down, out RaycastHit hitBody, 2f, layerMask))
         {

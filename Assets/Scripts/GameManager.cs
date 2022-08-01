@@ -9,9 +9,13 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject prefab;
 
-    [ContextMenu("Load")]
-    private void Load()
+    private void Start()
     {
-        levelLoader.SetupLevel(0);
+        Load(0);
+    }
+
+    private void Load(int levelNumber)
+    {
+        levelLoader.SetupLevel(levelNumber);
     }
 }

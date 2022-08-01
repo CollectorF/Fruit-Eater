@@ -624,10 +624,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2057311995896542506, guid: da3407729ba981d4d97ed0e5b8b871c9, type: 3}
-      propertyPath: returnMoveDuration
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9032412783736918200, guid: da3407729ba981d4d97ed0e5b8b871c9, type: 3}
       propertyPath: m_Name
       value: SnakeHorizontal

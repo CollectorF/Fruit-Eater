@@ -13,7 +13,6 @@ public struct Tiles
 
 
 [RequireComponent(typeof(LevelFiller))]
-[RequireComponent(typeof(LevelHandler))]
 public class LevelLoader : MonoBehaviour
 {
     [SerializeField]
