@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2310071056564866367}
   - component: {fileID: 2117351031022194445}
   - component: {fileID: 6771515855815338865}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Apple
   m_TagString: Target
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.5, y: 1, z: 1.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6771515855815338865
 MonoBehaviour:
@@ -254,3 +254,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMeshRenderer: {fileID: 5853855610022146002}
+  targetObject: {fileID: 7349664127198129494}

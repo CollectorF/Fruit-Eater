@@ -15,6 +15,7 @@ public class ResourcesLevelLoader : ILevelLoader
 
     public Level ReadLevel(string levelId)
     {
+        int targets = 0;
         string text = Resources.Load(levelId).ToString();
         string[] lines = Regex.Split(text, "\r\n");
         LevelTile[][] levelBase = new LevelTile[lines.Length][];
@@ -27,10 +28,14 @@ public class ResourcesLevelLoader : ILevelLoader
                 char code = castedCode[j][0];
                 Vector2Int position = new Vector2Int(i, j);
                 tileLibrary.TryGetValue(castedCode[j][0], out GameObject tile);
-                levelBase[i][j] = new LevelTile(tile, code, position, false);
+                levelBase[i][j] = new LevelTile(tile, code, position);
+                if (levelBase[i][j].Code == 'X')
+                {
+                    targets++;
+                }
             }
         }
-        return new Level(levelBase);
+        return new Level(levelBase, targets);
     }
 
     //public Level ReadLevelInfo(string levelId)

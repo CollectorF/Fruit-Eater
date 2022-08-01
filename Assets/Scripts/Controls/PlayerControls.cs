@@ -12,7 +12,6 @@ public class PlayerControls : MonoBehaviour
 
     private Camera mainCamera;
     private Coroutine dragCoroutine;
-    private Vector3 velocity = Vector3.zero;
 
     private void Awake()
     {
@@ -49,7 +48,8 @@ public class PlayerControls : MonoBehaviour
 
     private IEnumerator DragUpdate(GameObject clickedObject)
     {
-        float initialDistance = Vector3.Distance(clickedObject.transform.position, mainCamera.transform.position);
+        BaseActionElement currentElement = clickedObject.GetComponent<BaseActionElement>();
+        currentElement.isDragged = true;
         while (clickInputAction.ReadValue<float>() != 0)
         {
 #if UNITY_ANDROID || UNITY_IOS
@@ -60,5 +60,6 @@ public class PlayerControls : MonoBehaviour
             clickedObject.transform.position = new Vector3(point.x, clickedObject.transform.position.y, point.z);
             yield return null;
         }
+        currentElement.isDragged = false;
     }
 }

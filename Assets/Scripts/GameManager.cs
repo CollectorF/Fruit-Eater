@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject prefab;
 
-
     [ContextMenu("Load")]
     private void Load()
     {

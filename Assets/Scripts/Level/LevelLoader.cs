@@ -13,6 +13,7 @@ public struct Tiles
 
 
 [RequireComponent(typeof(LevelFiller))]
+[RequireComponent(typeof(LevelHandler))]
 public class LevelLoader : MonoBehaviour
 {
     [SerializeField]
@@ -25,11 +26,13 @@ public class LevelLoader : MonoBehaviour
     private ILevelLoader levelLoader;
     private LevelFiller levelFiller;
     private Dictionary<char, GameObject> tileAssets;
+    private List<TileController> tiles;
 
     internal Level level;
-    internal List<TileController> tiles;
 
-    //internal event Action OnLevelLoad;
+    public delegate void LevelLoadEvent();
+
+    public event LevelLoadEvent OnLevelLoad;
 
     private void Awake()
     {
@@ -46,16 +49,16 @@ public class LevelLoader : MonoBehaviour
 
     internal void SetupLevel(int levelid)
     {
-        string levelName = null;
-        if (tiles != null)
-        {
-            DestroyLevel();
-        }
+        string levelName;
+        //if (tiles != null)
+        //{
+        //    DestroyLevel();
+        //}
         levelName = levelDir + (levelid + 1);
         level = levelLoader.ReadLevel(levelName);
         tiles = levelFiller.FillLevel(tileAssets, level, spawnPoint);
         SetInitialPointPosition();
-        //OnLevelLoad?.Invoke();
+        OnLevelLoad?.Invoke();
     }
 
     private void SetInitialPointPosition()

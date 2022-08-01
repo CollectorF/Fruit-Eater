@@ -6,24 +6,24 @@ public struct LevelTile
     public GameObject Tile;
     public char Code;
     public Vector2Int Position;
-    public bool IsActive;
 
-    public LevelTile(GameObject tile, char code, Vector2Int position, bool isActive)
+    public LevelTile(GameObject tile, char code, Vector2Int position)
     {
         Tile = tile;
         Code = code;
         Position = position;
-        IsActive = isActive;
     }
 }
 
 public class Level
 {
     private LevelTile[][] level;
+    public int TargetsQuantity { get; private set; }
 
-    public Level(LevelTile[][] tiles)
+    public Level(LevelTile[][] tiles, int targets)
     {
         level = tiles;
+        TargetsQuantity = targets;
     }
 
     public Vector2Int GetLevelSize()
