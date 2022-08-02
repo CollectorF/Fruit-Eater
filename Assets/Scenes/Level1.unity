@@ -624,6 +624,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8148946038138672260, guid: da3407729ba981d4d97ed0e5b8b871c9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9032412783736918200, guid: da3407729ba981d4d97ed0e5b8b871c9, type: 3}
       propertyPath: m_Name
       value: SnakeHorizontal
@@ -862,7 +866,6 @@ MonoBehaviour:
   - {fileID: 7011046527251636456}
   body: {fileID: 6657859719995038636}
   growSpeed: 0
-  returnMoveDuration: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 8

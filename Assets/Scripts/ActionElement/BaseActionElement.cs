@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class BaseActionElement : MonoBehaviour
 {
+    [Header("Elements")]
     [SerializeField]
-    protected List<GameObject> heads;
+    protected List<ActionElementHead> heads;
     [SerializeField]
     protected GameObject body;
+
+    [Header("Parameters")]
     [SerializeField]
-    protected float growSpeed;
+    protected float growSpeed = 0.3f;
     [SerializeField]
-    protected float returnMoveDuration;
-    [SerializeField]
-    protected LayerMask layerMask;
+    internal LayerMask layerMask;
 
     public bool isDragged { get; internal set; } = false;
     public bool isFixed { get; internal set; } = false;
@@ -21,36 +22,52 @@ public class BaseActionElement : MonoBehaviour
     protected Vector3 initialPosition;
     protected Coroutine MoveHeadCoroutine;
 
-    protected virtual void Start()
+    private void Start()
     {
         initialPosition = gameObject.transform.position;
     }
 
-
-    protected virtual void Update()
+    private void Update()
     {
         if (!isDragged)
         {
             DetectTilesBelow();
         }
-        if (isFixed)
-        {
-            DetectTilesInfront();
-        }
     }
 
-    protected void GrowElement()
-    {
-
-    }
+    // ------------- Virtual Methods ------------- 
 
     protected virtual void DetectTilesBelow()
     {
 
     }
+
     protected virtual void DetectTilesInfront()
     {
 
+    }
+
+    // ------------- Base Methods ------------- 
+
+    protected bool DetectSingleTileBelow(out RaycastHit hitOut)
+    {
+        if (Physics.Raycast(body.transform.position + new Vector3(0, 0.3f, 0), Vector3.down, out RaycastHit hit, 2f, layerMask))
+        {
+            hitOut = hit;
+            if (hit.collider.CompareTag("Target"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            hitOut = hit;
+            return false;
+        }
     }
 
     protected void FixElement(GameObject tile)
@@ -63,41 +80,16 @@ public class BaseActionElement : MonoBehaviour
             );
         gameObject.tag = "Untagged";
         isFixed = true;
+        foreach (var item in heads)
+        {
+            item.SetColliderState(false);
+        }
+        DetectTilesInfront();
     }
 
-    protected void DisableTargetObject(GameObject target)
+    internal void DisableTargetObject(GameObject target)
     {
         TileController controller = target.GetComponentInParent<TileController>();
         controller.RemoveTargetObject();
     }
-
-    protected IEnumerator MoveHead(GameObject gameObject, Vector3 endPos, float moveDuration, GameObject target)
-    {
-        Vector3 startPos = gameObject.transform.position;
-        float timeElapsed = 0;
-        while (timeElapsed < moveDuration)
-        {
-            gameObject.transform.position = Vector3.Lerp(startPos, endPos, timeElapsed / moveDuration);
-            timeElapsed += Time.deltaTime;
-            yield return null;
-        }
-        gameObject.transform.position = endPos;
-        MoveHeadCoroutine = null;
-        DisableTargetObject(target);
-    }
-
-
-
-    //protected IEnumerator MoveToInitialPosition(GameObject gameObject, Vector3 endPos, float moveDuration)
-    //{
-    //    Vector3 startPos = gameObject.transform.position;
-    //    float timeElapsed = 0;
-    //    while (timeElapsed < moveDuration)
-    //    {
-    //        transform.position = Vector3.Lerp(startPos, endPos, timeElapsed / moveDuration);
-    //        timeElapsed += Time.deltaTime;
-    //        yield return null;
-    //    }
-    //    transform.position = endPos;
-    //}
 }

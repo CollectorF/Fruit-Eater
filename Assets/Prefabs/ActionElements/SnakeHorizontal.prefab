@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 303599822222108167}
   - component: {fileID: 4580435234033748115}
   - component: {fileID: 924730494}
+  - component: {fileID: 1980944363}
   m_Layer: 2
   m_Name: Head1
   m_TagString: ActiveElement
@@ -114,6 +115,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1980944363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7590514323620514787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76f2a23e7752a2f40a23503878924a4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &7978445297375588102
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,6 +257,7 @@ GameObject:
   - component: {fileID: 1205313483145176485}
   - component: {fileID: 1233191772172776889}
   - component: {fileID: 2057311995896542510}
+  - component: {fileID: 1172897367}
   m_Layer: 2
   m_Name: Head2
   m_TagString: ActiveElement
@@ -342,6 +359,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1172897367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8148946038138672260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76f2a23e7752a2f40a23503878924a4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &9032412783736918200
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,15 +423,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heads:
-  - {fileID: 7590514323620514787}
-  - {fileID: 8148946038138672260}
+  - {fileID: 1980944363}
+  - {fileID: 1172897367}
   body: {fileID: 7978445297375588102}
   growSpeed: 0.3
-  returnMoveDuration: 1
   layerMask:
     serializedVersion: 2
     m_Bits: 8
-  isFixed: 0
 --- !u!65 &5451897292179581544
 BoxCollider:
   m_ObjectHideFlags: 0
