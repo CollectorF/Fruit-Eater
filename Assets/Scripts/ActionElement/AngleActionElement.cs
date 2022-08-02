@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HorizontalActionElement : BaseActionElement
+public class AngleActionElement : BaseActionElement
 {
     protected override void DetectTilesBelow()
     {

@@ -4,23 +4,56 @@ using UnityEngine;
 
 public class TripleActionElement : BaseActionElement
 {
+    [Header("Additional elements")]
+    [SerializeField]
+    private GameObject ghostBody;
+
+    private Vector3 initialGhostScale;
+
+
+    protected override void Start()
+    {
+        base.Start();
+        initialGhostScale = ghostBody.transform.localScale;
+    }
+
     protected override void DetectTilesBelow()
     {
-        if (Physics.Raycast(body.transform.position + new Vector3(0, 0.3f, 0), Vector3.down, out RaycastHit hitBody, 2f, layerMask))
+        if (heads[0].DetectSingleTileBelow(out RaycastHit hitHead1) && heads[1].DetectSingleTileBelow(out RaycastHit hitHead2) && heads[2].DetectSingleTileBelow(out RaycastHit hitHead3) && DetectSingleTileBelow(out RaycastHit hitBody))
         {
-            if (Physics.Raycast(heads[0].transform.position + new Vector3(0, 0.3f, 0), Vector3.down, out RaycastHit hitHead1, 2f, layerMask))
-            {
-                if (Physics.Raycast(heads[1].transform.position + new Vector3(0, 0.3f, 0), Vector3.down, out RaycastHit hitHead2, 2f, layerMask))
-                {
-                    if (Physics.Raycast(heads[2].transform.position + new Vector3(0, 0.3f, 0), Vector3.down, out RaycastHit hitHead3, 2f, layerMask))
-                    {
-                        if (hitBody.collider.CompareTag("Target") && hitHead1.collider.CompareTag("Target") && hitHead2.collider.CompareTag("Target") && hitHead3.collider.CompareTag("Target"))
-                        {
-                            FixElement(hitBody.collider.gameObject);
-                        }
-                    }
-                }
-            }
+            FixElement(hitBody.collider.gameObject);
+            DisableTargetObject(hitBody.collider.gameObject);
+            DisableTargetObject(hitHead1.collider.gameObject);
+            DisableTargetObject(hitHead2.collider.gameObject);
+            DisableTargetObject(hitHead3.collider.gameObject);
+        }
+    }
+
+    protected override void DetectTilesInfront()
+    {
+        StartCoroutine(heads[0].MoveHead(heads[0].transform.right, growSpeed));
+        StartCoroutine(heads[1].MoveHead(heads[1].transform.right, growSpeed));
+        StartCoroutine(heads[2].MoveHead(heads[2].transform.right, growSpeed));
+    }
+
+    protected override void DetectHeadsPositionChange()
+    {
+        if (heads[0].transform.hasChanged || heads[1].transform.hasChanged)
+        {
+            float distance = Vector3.Distance(heads[0].transform.position, heads[1].transform.position);
+            body.transform.localScale = new Vector3(distance, initialScale.y, initialScale.z);
+
+            Vector3 middlePoint = (heads[0].transform.position + heads[1].transform.position) / 2f;
+            body.transform.position = middlePoint;
+        }
+
+        if (heads[2].transform.hasChanged)
+        {
+            float distance = Vector3.Distance(body.transform.position, heads[2].transform.position);
+            ghostBody.transform.localScale = new Vector3(initialGhostScale.x, initialGhostScale.y, distance);
+
+            float middlePoint = (body.transform.position.x + heads[2].transform.position.x) / 2f;
+            ghostBody.transform.position = new Vector3(middlePoint, ghostBody.transform.position.y, ghostBody.transform.position.z);
         }
     }
 }

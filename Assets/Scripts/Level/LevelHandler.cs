@@ -7,7 +7,7 @@ public class LevelHandler : MonoBehaviour
     private LevelLoader levelLoader;
     private int targetsQuantity;
 
-    private void Start()
+    private void Awake()
     {
         levelLoader = GetComponent<LevelLoader>();
         levelLoader.OnLevelLoad += SubscribeOnTilesEvents;
@@ -23,16 +23,18 @@ public class LevelHandler : MonoBehaviour
         }
     }
 
+    private void SetTargetsQuantity()
+    {
+        targetsQuantity = levelLoader.level.TargetsQuantity;
+        Debug.Log(targetsQuantity);
+    }
+
     internal void UpdateTargetsQuantity()
     {
         targetsQuantity--;
         Debug.Log(targetsQuantity);
     }
 
-    private void SetTargetsQuantity()
-    {
-        targetsQuantity = levelLoader.level.TargetsQuantity;
-        Debug.Log(targetsQuantity);
-    }
+
 
 }

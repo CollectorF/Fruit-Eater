@@ -19,12 +19,12 @@ public class BaseActionElement : MonoBehaviour
     public bool isDragged { get; internal set; } = false;
     public bool isFixed { get; internal set; } = false;
 
-    protected Vector3 initialPosition;
+    protected Vector3 initialScale;
     protected Coroutine MoveHeadCoroutine;
 
-    private void Start()
+    protected virtual void Start()
     {
-        initialPosition = gameObject.transform.position;
+        initialScale = body.transform.localScale;
     }
 
     private void Update()
@@ -32,6 +32,10 @@ public class BaseActionElement : MonoBehaviour
         if (!isDragged)
         {
             DetectTilesBelow();
+        }
+        if (isFixed)
+        {
+            DetectHeadsPositionChange();
         }
     }
 
@@ -43,6 +47,11 @@ public class BaseActionElement : MonoBehaviour
     }
 
     protected virtual void DetectTilesInfront()
+    {
+
+    }
+
+    protected virtual void DetectHeadsPositionChange()
     {
 
     }
