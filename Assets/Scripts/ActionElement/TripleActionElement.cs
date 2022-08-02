@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class TripleActionElement : BaseActionElement
 {
-    [Header("Additional elements")]
+    [Header("Additional Elements")]
     [SerializeField]
-    private GameObject ghostBody;
+    private GameObject proxyBody;
+    [SerializeField]
+    private Transform point;
 
-    private Vector3 initialGhostScale;
+    private Vector3 initialProxyScale;
 
 
     protected override void Start()
     {
         base.Start();
-        initialGhostScale = ghostBody.transform.localScale;
+        initialProxyScale = proxyBody.transform.localScale;
     }
 
     protected override void DetectTilesBelow()
@@ -31,9 +33,9 @@ public class TripleActionElement : BaseActionElement
 
     protected override void DetectTilesInfront()
     {
-        StartCoroutine(heads[0].MoveHead(heads[0].transform.right, growSpeed));
-        StartCoroutine(heads[1].MoveHead(heads[1].transform.right, growSpeed));
-        StartCoroutine(heads[2].MoveHead(heads[2].transform.right, growSpeed));
+        StartCoroutine(heads[0].MoveHead(heads[0].transform.right, parameters.GrowSpeed));
+        StartCoroutine(heads[1].MoveHead(heads[1].transform.right, parameters.GrowSpeed));
+        StartCoroutine(heads[2].MoveHead(heads[2].transform.right, parameters.GrowSpeed));
     }
 
     protected override void DetectHeadsPositionChange()
@@ -49,11 +51,11 @@ public class TripleActionElement : BaseActionElement
 
         if (heads[2].transform.hasChanged)
         {
-            float distance = Vector3.Distance(body.transform.position, heads[2].transform.position);
-            ghostBody.transform.localScale = new Vector3(initialGhostScale.x, initialGhostScale.y, distance);
+            float distance = Vector3.Distance(point.position, heads[2].transform.position);
+            proxyBody.transform.localScale = new Vector3(initialProxyScale.x, initialProxyScale.y, distance);
 
-            float middlePoint = (body.transform.position.x + heads[2].transform.position.x) / 2f;
-            ghostBody.transform.position = new Vector3(middlePoint, ghostBody.transform.position.y, ghostBody.transform.position.z);
+            Vector3 middlePoint = (heads[2].transform.position + point.position) / 2f;
+            proxyBody.transform.position = middlePoint;
         }
     }
 }

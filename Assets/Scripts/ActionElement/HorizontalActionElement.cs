@@ -17,8 +17,8 @@ public class HorizontalActionElement : BaseActionElement
 
     protected override void DetectTilesInfront()
     {
-        StartCoroutine(heads[0].MoveHead(heads[0].transform.right, growSpeed));
-        StartCoroutine(heads[1].MoveHead(heads[1].transform.right, growSpeed));
+        StartCoroutine(heads[0].MoveHead(heads[0].transform.right, parameters.GrowSpeed));
+        StartCoroutine(heads[1].MoveHead(heads[1].transform.right, parameters.GrowSpeed));
     }
 
     protected override void DetectHeadsPositionChange()

@@ -12,7 +12,7 @@ public class BaseActionElement : MonoBehaviour
 
     [Header("Parameters")]
     [SerializeField]
-    protected float growSpeed = 0.3f;
+    protected ActionElementParameters parameters;
     [SerializeField]
     internal LayerMask layerMask;
 

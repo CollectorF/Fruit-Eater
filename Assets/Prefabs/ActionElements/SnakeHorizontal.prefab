@@ -385,7 +385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9207859213581020353
 Transform:
   m_ObjectHideFlags: 0
@@ -420,7 +420,7 @@ MonoBehaviour:
   - {fileID: 1980944363}
   - {fileID: 1172897367}
   body: {fileID: 7978445297375588102}
-  growSpeed: 0.3
+  parameters: {fileID: 11400000, guid: b6ce3da8fc5e3ab42861eeedac5e4bcf, type: 2}
   layerMask:
     serializedVersion: 2
     m_Bits: 8

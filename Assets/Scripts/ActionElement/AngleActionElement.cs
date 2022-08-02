@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class AngleActionElement : BaseActionElement
 {
+    [Header("Additional Elements")]
+    [SerializeField]
+    private GameObject proxyBody1;
+    [SerializeField]
+    private GameObject proxyBody2;
+    [SerializeField]
+    private Transform basePoint1;
+    [SerializeField]
+    private Transform basePoint2;
+
     protected override void DetectTilesBelow()
     {
         if (heads[0].DetectSingleTileBelow(out RaycastHit hitHead1) && heads[1].DetectSingleTileBelow(out RaycastHit hitHead2) && DetectSingleTileBelow(out RaycastHit hitBody))
@@ -17,19 +27,27 @@ public class AngleActionElement : BaseActionElement
 
     protected override void DetectTilesInfront()
     {
-        StartCoroutine(heads[0].MoveHead(heads[0].transform.right, growSpeed));
-        StartCoroutine(heads[1].MoveHead(heads[1].transform.right, growSpeed));
+        StartCoroutine(heads[0].MoveHead(heads[0].transform.right, parameters.GrowSpeed));
+        StartCoroutine(heads[1].MoveHead(heads[1].transform.right, parameters.GrowSpeed));
     }
 
     protected override void DetectHeadsPositionChange()
     {
-        if (heads[0].transform.hasChanged || heads[1].transform.hasChanged)
+        if (heads[0].transform.hasChanged)
         {
-            float distance = Vector3.Distance(heads[0].transform.position, heads[1].transform.position);
-            body.transform.localScale = new Vector3(distance, initialScale.y, initialScale.z);
+            float distance = Vector3.Distance(heads[0].transform.position, basePoint1.position);
+            proxyBody1.transform.localScale = new Vector3(initialScale.x, initialScale.y, distance);
 
-            Vector3 middlePoint = (heads[0].transform.position + heads[1].transform.position) / 2f;
-            body.transform.position = middlePoint;
+            Vector3 middlePoint = (heads[0].transform.position + basePoint1.position) / 2f;
+            proxyBody1.transform.position = middlePoint;
+        }
+        if (heads[1].transform.hasChanged)
+        {
+            float distance = Vector3.Distance(heads[1].transform.position, basePoint2.position);
+            proxyBody2.transform.localScale = new Vector3(initialScale.x, initialScale.y, distance);
+
+            Vector3 middlePoint = (heads[1].transform.position + basePoint2.position) / 2f;
+            proxyBody2.transform.position = middlePoint;
         }
     }
 }
