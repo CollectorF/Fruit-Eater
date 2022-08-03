@@ -7,6 +7,10 @@ public class LevelHandler : MonoBehaviour
     private LevelLoader levelLoader;
     private int targetsQuantity;
 
+    public delegate void AllCollectedEvent();
+
+    public event AllCollectedEvent OnAllCollected;
+
     private void Awake()
     {
         levelLoader = GetComponent<LevelLoader>();
@@ -26,15 +30,14 @@ public class LevelHandler : MonoBehaviour
     private void SetTargetsQuantity()
     {
         targetsQuantity = levelLoader.level.TargetsQuantity;
-        Debug.Log(targetsQuantity);
     }
 
     internal void UpdateTargetsQuantity()
     {
         targetsQuantity--;
-        Debug.Log(targetsQuantity);
+        if (targetsQuantity == 0)
+        {
+            OnAllCollected?.Invoke();
+        }
     }
-
-
-
 }

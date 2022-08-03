@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelLoader: {fileID: 1329352442}
+  levelHandler: {fileID: 1329352445}
   prefab: {fileID: 9049271111122708660, guid: b6addc1aa0cf2a44abf2eb9561d23104, type: 3}
 --- !u!4 &460584270
 Transform:
