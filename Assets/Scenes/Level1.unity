@@ -220,8 +220,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickInputAction:
     m_Name: Click Input
-    m_Type: 0
-    m_ExpectedControlType: 
+    m_Type: 1
+    m_ExpectedControlType: Button
     m_Id: 1caa5a08-4e2d-4a5a-8aa9-c6f6e87e9b34
     m_Processors: 
     m_Interactions: 
@@ -236,7 +236,7 @@ MonoBehaviour:
       m_Flags: 0
     - m_Name: 
       m_Id: 063725dd-d679-400d-95f3-244aaa0c99bf
-      m_Path: <Touchscreen>/primaryTouch/tap
+      m_Path: <Touchscreen>/Press
       m_Interactions: 
       m_Processors: 
       m_Groups: 
