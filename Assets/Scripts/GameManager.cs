@@ -12,9 +12,11 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject prefab;
 
+    private bool levelFinished;
+
     private void Awake()
     {
-        levelHandler.OnAllCollected += WinLevel;
+        levelHandler.OnQuantityChanged += CheckWinLoseConditions;
     }
 
     private void Start()
@@ -27,8 +29,31 @@ public class GameManager : MonoBehaviour
         levelLoader.SetupLevel(levelNumber);
     }
 
+    private void CheckWinLoseConditions(int targetQuantity, int elementsQuantity)
+    {
+        if (targetQuantity == 0)
+        {
+            WinLevel();
+        }
+        if(targetQuantity > 0 && elementsQuantity == 0)
+        {
+            LoseLevel();
+        }
+    }
+
     private void WinLevel()
     {
-        Debug.Log("You Win!");
+        if (!levelFinished)
+        {
+            Debug.Log("You Win!");
+        }
+    }
+
+    private void LoseLevel()
+    {
+        if (!levelFinished)
+        {
+            Debug.Log("You Lose!");
+        }
     }
 }

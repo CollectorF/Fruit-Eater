@@ -14,32 +14,28 @@ public class BaseActionElement : MonoBehaviour
     [SerializeField]
     protected ActionElementParameters parameters;
     [SerializeField]
-    internal LayerMask layerMask;
+    internal LayerMask layerMask;    
 
     public bool isDragged { get; internal set; } = false;
     public bool isFixed { get; internal set; } = false;
+    public bool headMovementDone { get; internal set; } = true;
+    public bool isAlive { get; internal set; } = true;
 
     protected Vector3 initialScale;
     protected Coroutine MoveHeadCoroutine;
+    internal LevelHandler levelHandler;
+
+    public delegate void DieEvent();
+
+    public event DieEvent OnDie;
+
+
+    // ------------- Virtual Methods ------------- 
 
     protected virtual void Start()
     {
         initialScale = body.transform.localScale;
     }
-
-    private void Update()
-    {
-        if (!isDragged)
-        {
-            DetectTilesBelow();
-        }
-        if (isFixed)
-        {
-            DetectHeadsPositionChange();
-        }
-    }
-
-    // ------------- Virtual Methods ------------- 
 
     protected virtual void DetectTilesBelow()
     {
@@ -57,6 +53,32 @@ public class BaseActionElement : MonoBehaviour
     }
 
     // ------------- Base Methods ------------- 
+
+    private void Update()
+    {
+        if (!isDragged && isAlive)
+        {
+            DetectTilesBelow();
+        }
+        if (isFixed && isAlive)
+        {
+            DetectHeadsPositionChange();
+            isAlive = !IsDoneMovement();
+        }
+    }
+
+    private bool IsDoneMovement()
+    {
+        for (int i = 0; i < heads.Count; ++i)
+        {
+            if (!heads[i].doneMovement)
+            {
+                return false;
+            }
+        }
+        OnDie?.Invoke();
+        return true;
+    }
 
     protected bool DetectSingleTileBelow(out RaycastHit hitOut)
     {

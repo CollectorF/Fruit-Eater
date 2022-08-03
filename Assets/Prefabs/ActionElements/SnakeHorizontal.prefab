@@ -424,6 +424,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 8
+  levelHandler: {fileID: 0}
 --- !u!65 &5451897292179581544
 BoxCollider:
   m_ObjectHideFlags: 0

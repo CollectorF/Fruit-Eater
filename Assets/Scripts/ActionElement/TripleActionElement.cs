@@ -12,7 +12,6 @@ public class TripleActionElement : BaseActionElement
 
     private Vector3 initialProxyScale;
 
-
     protected override void Start()
     {
         base.Start();

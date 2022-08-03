@@ -143,6 +143,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 8
+  levelHandler: {fileID: 0}
   proxyBody: {fileID: 27504062372027096}
   point: {fileID: 913093905610433186}
 --- !u!65 &3727468981951694383

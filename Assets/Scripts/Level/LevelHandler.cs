@@ -6,16 +6,20 @@ public class LevelHandler : MonoBehaviour
 {
     private LevelLoader levelLoader;
     private int targetsQuantity;
+    public int elementsQuantity;
 
-    public delegate void AllCollectedEvent();
+    public delegate void TargetsQuantityChangedEvent(int targQuantity, int elemQuantity);
 
-    public event AllCollectedEvent OnAllCollected;
+    public event TargetsQuantityChangedEvent OnQuantityChanged;
 
     private void Awake()
     {
         levelLoader = GetComponent<LevelLoader>();
         levelLoader.OnLevelLoad += SubscribeOnTilesEvents;
+        levelLoader.OnLevelLoad += SubscribeOnElementsEvents;
+
         levelLoader.OnLevelLoad += SetTargetsQuantity;
+        levelLoader.OnLevelLoad += SetElementsQuantity;
     }
 
     private void SubscribeOnTilesEvents()
@@ -27,17 +31,34 @@ public class LevelHandler : MonoBehaviour
         }
     }
 
+    private void SubscribeOnElementsEvents()
+    {
+        BaseActionElement[] elements = FindObjectsOfType<BaseActionElement>();
+        foreach (var item in elements)
+        {
+            item.OnDie += UpdateElementsQuantity;
+        }
+    }
+
     private void SetTargetsQuantity()
     {
         targetsQuantity = levelLoader.level.TargetsQuantity;
     }
 
-    internal void UpdateTargetsQuantity()
+    private void SetElementsQuantity()
+    {
+        elementsQuantity = levelLoader.levelElements.Count;
+    }
+
+    private void UpdateTargetsQuantity()
     {
         targetsQuantity--;
-        if (targetsQuantity == 0)
-        {
-            OnAllCollected?.Invoke();
-        }
+        OnQuantityChanged?.Invoke(targetsQuantity, elementsQuantity);
+    }
+
+    internal void UpdateElementsQuantity()
+    {
+        elementsQuantity--;
+        OnQuantityChanged?.Invoke(targetsQuantity, elementsQuantity);
     }
 }

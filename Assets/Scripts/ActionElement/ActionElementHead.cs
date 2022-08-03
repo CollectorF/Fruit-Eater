@@ -6,6 +6,7 @@ public class ActionElementHead : MonoBehaviour
 {
     private BaseActionElement mainActionController;
     private Collider collider;
+    internal bool doneMovement = false;
 
     private void Awake()
     {
@@ -42,7 +43,7 @@ public class ActionElementHead : MonoBehaviour
 
     internal IEnumerator MoveHead(Vector3 direction, float moveDuration)
     {
-        while(Physics.Raycast(gameObject.transform.position, direction, out RaycastHit hit, 1.5f, mainActionController.layerMask))
+        while (Physics.Raycast(gameObject.transform.position, direction, out RaycastHit hit, 1.5f, mainActionController.layerMask))
         {
             Vector3 startPoint = gameObject.transform.position;
             Vector3 targetPoint = new Vector3
@@ -61,5 +62,6 @@ public class ActionElementHead : MonoBehaviour
             gameObject.transform.position = targetPoint;
             mainActionController.DisableTargetObject(hit.collider.gameObject);
         }
+        doneMovement = true;
     }
 }

@@ -9,4 +9,7 @@ public class LevelElement
 
     [JsonProperty("rotation")]
     public int Rotation { get; set; }
+
+    [JsonProperty("spawnPoint")]
+    public int SpawnPoint { get; set; }
 }

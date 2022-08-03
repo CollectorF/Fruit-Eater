@@ -625,6 +625,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 8
+  levelHandler: {fileID: 0}
   proxyBody1: {fileID: 4834701132683936758}
   proxyBody2: {fileID: 2883072656764555911}
   basePoint1: {fileID: 621251057886464434}

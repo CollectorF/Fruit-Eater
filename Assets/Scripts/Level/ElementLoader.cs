@@ -22,9 +22,10 @@ public class ElementLoader : MonoBehaviour
 {
     [SerializeField]
     private List<Elements> elementsLibrary;
+    [SerializeField]
+    private List<Transform> spawnPoints;
 
     private Dictionary<ElementType, GameObject> elementAssets;
-
 
     private void Awake()
     {
@@ -38,12 +39,13 @@ public class ElementLoader : MonoBehaviour
 
     internal void SetupActiveElements(List<LevelElement> levelElements)
     {
+        
         foreach (var item in levelElements)
         {
             foreach (KeyValuePair<ElementType, GameObject> element in elementAssets)
             {
                 elementAssets.TryGetValue(item.Type, out GameObject elementOut);
-                Instantiate(elementOut, Vector3.zero, Quaternion.Euler(0, item.Rotation, 0));
+                Instantiate(elementOut, spawnPoints[item.SpawnPoint].position, Quaternion.Euler(0, item.Rotation, 0));
                 break;
             }
         }
