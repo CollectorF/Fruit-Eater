@@ -1,16 +1,14 @@
-{
-	"elements" : [
-        {
-            "type" : "horizontal",
-            "rotation" : 0
-        },
-        {
-            "type" : "angle",
-            "rotation" : 270
-        },
-        {
-            "type" : "triple",
-            "rotation" : 270
-        }
-    ]
-}
+[
+    {
+        "type" : "horizontal",
+        "rotation" : 0
+    },
+    {
+        "type" : "angle",
+        "rotation" : 270
+    },
+    {
+        "type" : "triple",
+        "rotation" : 270
+    }
+]

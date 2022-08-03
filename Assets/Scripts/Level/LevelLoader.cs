@@ -28,6 +28,7 @@ public class LevelLoader : MonoBehaviour
     private List<TileController> tiles;
 
     internal Level level;
+    internal List<LevelElement> levelElements;
 
     public delegate void LevelLoadEvent();
 
@@ -57,6 +58,7 @@ public class LevelLoader : MonoBehaviour
         level = levelLoader.ReadLevel(levelName);
         tiles = levelFiller.FillLevel(tileAssets, level, spawnPoint);
         SetInitialPointPosition();
+        levelElements = levelLoader.ReadLevelInfo(levelName);
         OnLevelLoad?.Invoke();
     }
 

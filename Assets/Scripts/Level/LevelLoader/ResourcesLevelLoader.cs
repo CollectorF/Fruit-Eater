@@ -1,4 +1,5 @@
-﻿//using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 public class ResourcesLevelLoader : ILevelLoader
 {
     private Dictionary<char, GameObject> tileLibrary;
-    //private string levelInfoFilePostfix = "_Info";
+    private string levelInfoFilePostfix = "_Parameters";
 
     public ResourcesLevelLoader(Dictionary<char, GameObject> tileLibrary)
     {
@@ -38,11 +39,11 @@ public class ResourcesLevelLoader : ILevelLoader
         return new Level(levelBase, targets);
     }
 
-    //public Level ReadLevelInfo(string levelId)
-    //{
-    //    var fullFileName = string.Concat(levelId, levelInfoFilePostfix);
-    //    string json = Resources.Load(fullFileName).ToString();
-    //    Level level = JsonConvert.DeserializeObject<Level>(json);
-    //    return new Level(level.DifficultyString, level.Timer, level.IsOpen, level.Obstacles);
-    //}
+    public List<LevelElement> ReadLevelInfo(string levelId)
+    {
+        var fullFileName = string.Concat(levelId, levelInfoFilePostfix);
+        string json = Resources.Load(fullFileName).ToString();
+        List<LevelElement> levelParameters = JsonConvert.DeserializeObject<List<LevelElement>>(json);
+        return levelParameters;
+    }
 }
