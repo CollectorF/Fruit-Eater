@@ -5,13 +5,8 @@ using System.Collections.Generic;
 public class LevelElement
 {
     [JsonProperty("type")]
-    public string Type { get; set; }
+    public ElementType Type { get; set; }
 
     [JsonProperty("rotation")]
     public int Rotation { get; set; }
 }
-
-//public class Element
-//{
-//}
-//}

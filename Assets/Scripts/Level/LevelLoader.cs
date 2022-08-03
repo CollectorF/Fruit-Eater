@@ -24,6 +24,7 @@ public class LevelLoader : MonoBehaviour
 
     private ILevelLoader levelLoader;
     private LevelFiller levelFiller;
+    private ElementLoader elementLoader;
     private Dictionary<char, GameObject> tileAssets;
     private List<TileController> tiles;
 
@@ -45,6 +46,7 @@ public class LevelLoader : MonoBehaviour
         }
         levelLoader = new ResourcesLevelLoader(tileAssets);
         levelFiller = GetComponent<LevelFiller>();
+        elementLoader = GetComponent<ElementLoader>();
     }
 
     internal void SetupLevel(int levelid)
@@ -56,9 +58,10 @@ public class LevelLoader : MonoBehaviour
         //}
         levelName = levelDir + (levelid + 1);
         level = levelLoader.ReadLevel(levelName);
+        levelElements = levelLoader.ReadLevelInfo(levelName);
         tiles = levelFiller.FillLevel(tileAssets, level, spawnPoint);
         SetInitialPointPosition();
-        levelElements = levelLoader.ReadLevelInfo(levelName);
+        elementLoader.SetupActiveElements(levelElements);
         OnLevelLoad?.Invoke();
     }
 

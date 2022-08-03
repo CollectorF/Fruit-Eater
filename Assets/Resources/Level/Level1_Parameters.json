@@ -1,14 +1,14 @@
 [
     {
-        "type" : "horizontal",
+        "type" : 0,
         "rotation" : 0
     },
     {
-        "type" : "angle",
+        "type" : 1,
         "rotation" : 270
     },
     {
-        "type" : "triple",
+        "type" : 2,
         "rotation" : 270
     }
 ]
