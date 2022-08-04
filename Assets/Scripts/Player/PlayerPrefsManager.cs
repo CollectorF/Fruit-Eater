@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerPrefsManager : MonoBehaviour
 {
     private string CURRENT_LEVEL = "Current_level";
-    //private int currentLevel;
 
     public int LoadPlayerPrefs()
     {

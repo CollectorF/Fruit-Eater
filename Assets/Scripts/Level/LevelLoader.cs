@@ -29,9 +29,9 @@ public class LevelLoader : MonoBehaviour
     private List<LevelElement> levelAssets;
 
     internal Level level;
-    
     internal List<GameObject> tiles;
     internal List<GameObject> elements;
+
     public delegate void LevelLoadEvent();
 
     public event LevelLoadEvent OnLevelLoad;

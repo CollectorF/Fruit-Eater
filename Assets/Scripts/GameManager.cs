@@ -10,7 +10,13 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private LevelHandler levelHandler;
     [SerializeField]
+    private UIManager uiManager;
+    [SerializeField]
     private float timerOnLevelEnd = 2;
+    [SerializeField]
+    private string winText = "You \n win!";
+    [SerializeField]
+    private string loseText = "You \n lose!";
 
     private PlayerPrefsManager prefsManager;
 
@@ -21,6 +27,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         prefsManager = GetComponent<PlayerPrefsManager>();
+        uiManager.OnRestartClick += RestartLevel;
         levelHandler.OnQuantityChanged += CheckWinLoseConditions;
     }
 
@@ -32,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     private void LoadLevel(int levelNumber)
     {
+        uiManager.SetPopupState(false);
         levelLoader.SetupLevel(levelNumber);
         levelEnded = false;
     }
@@ -52,7 +60,8 @@ public class GameManager : MonoBehaviour
     {
         if (!levelEnded)
         {
-            Debug.Log("You Win!");
+            uiManager.SetPopupText(winText);
+            uiManager.SetPopupState(true);
             currentLevelNumber++;
             prefsManager.SavePlayerPrefs(currentLevelNumber);
             if (timerCoroutine == null)
@@ -67,7 +76,8 @@ public class GameManager : MonoBehaviour
     {
         if (!levelEnded)
         {
-            Debug.Log("You Lose!");
+            uiManager.SetPopupText(loseText);
+            uiManager.SetPopupState(true);
             if (timerCoroutine == null)
             {
                 timerCoroutine = StartCoroutine(LoadTimerCoroutine(timerOnLevelEnd));
@@ -76,10 +86,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void RestartLevel()
+    {
+        LoadLevel(currentLevelNumber);
+    }
+
 
     private IEnumerator LoadTimerCoroutine(float timer)
     {
         yield return new WaitForSeconds(timer);
+        uiManager.SetPopupState(false);
         try
         {
             LoadLevel(currentLevelNumber);
