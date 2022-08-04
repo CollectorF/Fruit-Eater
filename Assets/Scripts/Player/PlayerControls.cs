@@ -28,20 +28,17 @@ public class PlayerControls : MonoBehaviour
 
     private void OnClick(InputAction.CallbackContext callback)
     {
-        //if (!levelFinished)
-        {
 #if UNITY_ANDROID || UNITY_IOS
-            Ray ray = mainCamera.ScreenPointToRay(Touchscreen.current.primaryTouch.position.ReadValue());
+        Ray ray = mainCamera.ScreenPointToRay(Touchscreen.current.primaryTouch.position.ReadValue());
 #elif UNITY_STANDALONE
-            Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
 #endif
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, layerMask))
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, layerMask))
+        {
+            if (hit.collider.CompareTag("Dragable"))
             {
-                if (hit.collider.CompareTag("Dragable"))
-                {
-                    dragCoroutine = StartCoroutine(DragUpdate(hit.collider.gameObject));
-                }
+                dragCoroutine = StartCoroutine(DragUpdate(hit.collider.gameObject));
             }
         }
     }

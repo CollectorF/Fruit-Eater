@@ -201,6 +201,7 @@ GameObject:
   - component: {fileID: 460584270}
   - component: {fileID: 460584269}
   - component: {fileID: 460584271}
+  - component: {fileID: 460584272}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -222,7 +223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelLoader: {fileID: 1329352442}
   levelHandler: {fileID: 1329352445}
-  prefab: {fileID: 9049271111122708660, guid: b6addc1aa0cf2a44abf2eb9561d23104, type: 3}
+  timerOnLevelEnd: 2
 --- !u!4 &460584270
 Transform:
   m_ObjectHideFlags: 0
@@ -278,6 +279,18 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 51
+--- !u!114 &460584272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460584268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b453ac736bb89a41af48a7adda51aae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &493959679
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[RequireComponent(typeof(PlayerPrefsManager))]
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
@@ -10,19 +10,23 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private LevelHandler levelHandler;
     [SerializeField]
-    private float timerOnLevelEnd;
+    private float timerOnLevelEnd = 2;
 
-    private int currentLevelNumber = 0; // Level numbers start from zero: 0 = "level1"
+    private PlayerPrefsManager prefsManager;
+
+    private int currentLevelNumber; // Level numbers start from zero: 0 = "level1"
     private Coroutine timerCoroutine;
     private bool levelEnded;
 
     private void Awake()
     {
+        prefsManager = GetComponent<PlayerPrefsManager>();
         levelHandler.OnQuantityChanged += CheckWinLoseConditions;
     }
 
     private void Start()
     {
+        currentLevelNumber = prefsManager.LoadPlayerPrefs();
         LoadLevel(currentLevelNumber);
     }
 
@@ -50,6 +54,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("You Win!");
             currentLevelNumber++;
+            prefsManager.SavePlayerPrefs(currentLevelNumber);
             if (timerCoroutine == null)
             {
                 timerCoroutine = StartCoroutine(LoadTimerCoroutine(timerOnLevelEnd));
