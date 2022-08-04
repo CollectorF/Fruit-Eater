@@ -10,10 +10,11 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private LevelHandler levelHandler;
     [SerializeField]
-    private GameObject prefab;
+    private float timerOnLevelEnd;
 
-    private bool levelFinished;
     private int currentLevelNumber = 0; // Level numbers start from zero: 0 = "level1"
+    private Coroutine timerCoroutine;
+    private bool levelEnded;
 
     private void Awake()
     {
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
     private void LoadLevel(int levelNumber)
     {
         levelLoader.SetupLevel(levelNumber);
+        levelEnded = false;
     }
 
     private void CheckWinLoseConditions(int targetQuantity, int elementsQuantity)
@@ -44,20 +46,44 @@ public class GameManager : MonoBehaviour
 
     private void WinLevel()
     {
-        if (!levelFinished)
+        if (!levelEnded)
         {
             Debug.Log("You Win!");
             currentLevelNumber++;
-            levelFinished = true;
+            if (timerCoroutine == null)
+            {
+                timerCoroutine = StartCoroutine(LoadTimerCoroutine(timerOnLevelEnd));
+            }
+            levelEnded = true;
         }
     }
 
     private void LoseLevel()
     {
-        if (!levelFinished)
+        if (!levelEnded)
         {
             Debug.Log("You Lose!");
-            levelFinished = true;
+            if (timerCoroutine == null)
+            {
+                timerCoroutine = StartCoroutine(LoadTimerCoroutine(timerOnLevelEnd));
+            }
+            levelEnded = true;
         }
+    }
+
+
+    private IEnumerator LoadTimerCoroutine(float timer)
+    {
+        yield return new WaitForSeconds(timer);
+        try
+        {
+            LoadLevel(currentLevelNumber);
+        }
+        catch
+        {
+            currentLevelNumber = 0;
+            LoadLevel(currentLevelNumber);
+        }
+        timerCoroutine = null;
     }
 }

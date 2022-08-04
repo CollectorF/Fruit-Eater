@@ -99,6 +99,7 @@ public class LevelLoader : MonoBehaviour
             Destroy(item.gameObject);
         }
         elements.Clear();
+        spawnPoint.transform.position = Vector3.zero;
     }
 }
 

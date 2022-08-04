@@ -2,16 +2,11 @@
     {
         "type" : 0,
         "rotation" : 0,
-	"spawnPoint" : 4
+	"spawnPoint" : 0
     },
     {
         "type" : 1,
-        "rotation" : 270,
+        "rotation" : 0,
 	"spawnPoint" : 1
     },
-    {
-        "type" : 2,
-        "rotation" : 270,
-	"spawnPoint" : 0
-    }
 ]
