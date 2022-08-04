@@ -22,7 +22,7 @@ public class LevelLoader : MonoBehaviour
     [SerializeField]
     private List<Tiles> tilesLibrary;
 
-    private ILevelLoader levelLoader;
+    private ILevelReader levelReader;
     private LevelFiller levelFiller;
     private ElementLoader elementLoader;
     private Dictionary<char, GameObject> tileAssets;
@@ -45,7 +45,7 @@ public class LevelLoader : MonoBehaviour
         {
             tileAssets.Add(tile.Code, tile.TileAsset);
         }
-        levelLoader = new ResourcesLevelLoader(tileAssets);
+        levelReader = new ResourcesLevelReader(tileAssets);
         levelFiller = GetComponent<LevelFiller>();
         elementLoader = GetComponent<ElementLoader>();
     }
@@ -58,8 +58,8 @@ public class LevelLoader : MonoBehaviour
             DestroyLevel();
         }
         levelName = levelDir + (levelid + 1);
-        level = levelLoader.ReadLevel(levelName);
-        levelAssets = levelLoader.ReadLevelInfo(levelName);
+        level = levelReader.ReadLevel(levelName);
+        levelAssets = levelReader.ReadLevelInfo(levelName);
         tiles = levelFiller.FillLevel(tileAssets, level, spawnPoint);
         SetInitialPointPosition();
         elements = elementLoader.SetupActiveElements(levelAssets);

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public interface ILevelLoader
+public interface ILevelReader
 {
     Level ReadLevel(string levelId);
 

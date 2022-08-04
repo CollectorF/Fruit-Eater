@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-public class ResourcesLevelLoader : ILevelLoader
+public class ResourcesLevelReader : ILevelReader
 {
     private Dictionary<char, GameObject> tileLibrary;
     private string levelInfoFilePostfix = "_Parameters";
 
-    public ResourcesLevelLoader(Dictionary<char, GameObject> tileLibrary)
+    public ResourcesLevelReader(Dictionary<char, GameObject> tileLibrary)
     {
         this.tileLibrary = tileLibrary;
     }
