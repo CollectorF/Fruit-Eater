@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     private GameObject prefab;
 
     private bool levelFinished;
+    private int currentLevelNumber = 0; // Level numbers start from zero: 0 = "level1"
 
     private void Awake()
     {
@@ -21,10 +22,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Load(0);
+        LoadLevel(currentLevelNumber);
     }
 
-    private void Load(int levelNumber)
+    private void LoadLevel(int levelNumber)
     {
         levelLoader.SetupLevel(levelNumber);
     }
@@ -46,6 +47,8 @@ public class GameManager : MonoBehaviour
         if (!levelFinished)
         {
             Debug.Log("You Win!");
+            currentLevelNumber++;
+            levelFinished = true;
         }
     }
 
@@ -54,6 +57,7 @@ public class GameManager : MonoBehaviour
         if (!levelFinished)
         {
             Debug.Log("You Lose!");
+            levelFinished = true;
         }
     }
 }

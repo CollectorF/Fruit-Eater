@@ -26,11 +26,12 @@ public class LevelLoader : MonoBehaviour
     private LevelFiller levelFiller;
     private ElementLoader elementLoader;
     private Dictionary<char, GameObject> tileAssets;
-    private List<TileController> tiles;
+    private List<LevelElement> levelAssets;
 
     internal Level level;
-    internal List<LevelElement> levelElements;
-
+    
+    internal List<GameObject> tiles;
+    internal List<GameObject> elements;
     public delegate void LevelLoadEvent();
 
     public event LevelLoadEvent OnLevelLoad;
@@ -52,16 +53,16 @@ public class LevelLoader : MonoBehaviour
     internal void SetupLevel(int levelid)
     {
         string levelName;
-        //if (tiles != null)
-        //{
-        //    DestroyLevel();
-        //}
+        if (tiles != null && elements != null)
+        {
+            DestroyLevel();
+        }
         levelName = levelDir + (levelid + 1);
         level = levelLoader.ReadLevel(levelName);
-        levelElements = levelLoader.ReadLevelInfo(levelName);
+        levelAssets = levelLoader.ReadLevelInfo(levelName);
         tiles = levelFiller.FillLevel(tileAssets, level, spawnPoint);
         SetInitialPointPosition();
-        elementLoader.SetupActiveElements(levelElements);
+        elements = elementLoader.SetupActiveElements(levelAssets);
         OnLevelLoad?.Invoke();
     }
 
@@ -88,14 +89,16 @@ public class LevelLoader : MonoBehaviour
 
     private void DestroyLevel()
     {
-        if (tiles.Count != 0)
+        foreach (var item in tiles)
         {
-            foreach (var item in tiles)
-            {
-                Destroy(item.gameObject);
-            }
-            tiles.Clear();
+            Destroy(item.gameObject);
         }
+        tiles.Clear();
+        foreach (var item in elements)
+        {
+            Destroy(item.gameObject);
+        }
+        elements.Clear();
     }
 }
 

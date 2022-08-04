@@ -27,6 +27,8 @@ public class ElementLoader : MonoBehaviour
 
     private Dictionary<ElementType, GameObject> elementAssets;
 
+    private GameObject currentObject;
+
     private void Awake()
     {
         elementAssets = new Dictionary<ElementType, GameObject>();
@@ -37,18 +39,20 @@ public class ElementLoader : MonoBehaviour
         }
     }
 
-    internal void SetupActiveElements(List<LevelElement> levelElements)
+    internal List<GameObject> SetupActiveElements(List<LevelElement> levelElements)
     {
-        
+        List<GameObject> elements = new List<GameObject>();
         foreach (var item in levelElements)
         {
             foreach (KeyValuePair<ElementType, GameObject> element in elementAssets)
             {
                 elementAssets.TryGetValue(item.Type, out GameObject elementOut);
-                Instantiate(elementOut, spawnPoints[item.SpawnPoint].position, Quaternion.Euler(0, item.Rotation, 0));
+                currentObject = Instantiate(elementOut, spawnPoints[item.SpawnPoint].position, Quaternion.Euler(0, item.Rotation, 0));
+                elements.Add(currentObject);
                 break;
             }
         }
+        return elements;
     }
 }
 

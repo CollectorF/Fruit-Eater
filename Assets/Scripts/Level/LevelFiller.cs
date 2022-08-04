@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class LevelFiller : MonoBehaviour 
 {
+    private GameObject currentObject;
 
-    public List<TileController> FillLevel(Dictionary<char, GameObject> tileAssets, Level level, GameObject parent)
+    public List<GameObject> FillLevel(Dictionary<char, GameObject> tileAssets, Level level, GameObject parent)
     {
-        List<TileController> tileControllers = new List<TileController>();
+        List<GameObject> tiles = new List<GameObject>();
         for (int x = 0; x < level.GetLevelSize().x; x++)
         {
             for (int y = 0; y < level.GetLevelSize().y; y++)
@@ -18,12 +19,12 @@ public class LevelFiller : MonoBehaviour
                     tileAssets.TryGetValue(level.GetTileAt(x, y).Code, out GameObject tileOut);
                     if (tileOut != null)
                     {
-                        Instantiate(tileOut, new Vector3(x, 0, -y), Quaternion.identity, parent.transform);
-                        tileControllers.Add(tileOut.GetComponent<TileController>());
+                        currentObject = Instantiate(tileOut, new Vector3(x, 0, -y), Quaternion.identity, parent.transform);
+                        tiles.Add(currentObject);
                     }
                 }
             }
         }
-        return tileControllers;
+        return tiles;
     }
 }

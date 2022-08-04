@@ -24,19 +24,17 @@ public class LevelHandler : MonoBehaviour
 
     private void SubscribeOnTilesEvents()
     {
-        TileController[] tiles = FindObjectsOfType<TileController>();
-        foreach (var item in tiles)
+        foreach (var item in levelLoader.tiles)
         {
-            item.OnTargetRemove += UpdateTargetsQuantity;
+            item.GetComponent<TileController>().OnTargetRemove += UpdateTargetsQuantity;
         }
     }
 
     private void SubscribeOnElementsEvents()
     {
-        BaseActionElement[] elements = FindObjectsOfType<BaseActionElement>();
-        foreach (var item in elements)
+        foreach (var item in levelLoader.elements)
         {
-            item.OnDie += UpdateElementsQuantity;
+            item.GetComponent<BaseActionElement>().OnDie += UpdateElementsQuantity;
         }
     }
 
@@ -47,7 +45,7 @@ public class LevelHandler : MonoBehaviour
 
     private void SetElementsQuantity()
     {
-        elementsQuantity = levelLoader.levelElements.Count;
+        elementsQuantity = levelLoader.elements.Count;
     }
 
     private void UpdateTargetsQuantity()
